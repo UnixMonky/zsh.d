@@ -28,7 +28,7 @@ LOCAL_PATHS+=("/opt/samba/sbin")       # SAMBA
 LOCAL_PATHS+=("/opt/mysql/bin")        # MySQL
 # LOCAL_PATHS+=("/usr/local/go/bin")     # Go language
 ## Shell Completing
-LOCAL_PATHS+=("/usr/local/aws/bin")      # aws cli
+# LOCAL_PATHS+=("/usr/local/aws/bin")      # aws cli
 
 FULL_PATH=()
 for PATH_ELEMENT in "${OS_PATH[@]}" "${LOCAL_PATHS[@]}"; do

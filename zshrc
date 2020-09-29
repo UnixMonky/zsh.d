@@ -42,6 +42,9 @@ plugins=(zsh-syntax-highlighting zsh-autosuggestions)
 source $ZSH/oh-my-zsh.sh
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
+## autocompletes
+complete -C '/bin/aws_completer' aws
+
 ###
 # Aliases
 ###
