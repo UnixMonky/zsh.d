@@ -32,9 +32,9 @@ autoload bashcompinit && bashcompinit
 export HISTFILE=${HOME}/.history/hist_$$
 export HISTSIZE=1024
 
-## Always use vi as our editor
-export VISUAL=vi
-export EDITOR=vi
+## Always use vim as our editor
+export VISUAL=vim
+export EDITOR=vim
 
 ## oh-my-zsh
 export ZSH="$HOME/.config/oh-my-zsh"
