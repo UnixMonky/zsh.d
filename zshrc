@@ -35,6 +35,7 @@ export HISTSIZE=1024
 ## Always use vim as our editor
 export VISUAL=vim
 export EDITOR=vim
+set -o vi
 
 ## oh-my-zsh
 export ZSH="$HOME/.config/oh-my-zsh"
