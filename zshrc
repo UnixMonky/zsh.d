@@ -35,12 +35,14 @@ export HISTSIZE=1024
 ## Always use vim as our editor
 export VISUAL=vim
 export EDITOR=vim
-set -o vi
 
 ## oh-my-zsh
 export ZSH="$HOME/.config/oh-my-zsh"
+export ZSH_CUSTOM="${ZSH}/custom"
 plugins=(zsh-syntax-highlighting zsh-autosuggestions)
 source $ZSH/oh-my-zsh.sh
+
+## powerlevel10k theme
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
 ## autocompletes
