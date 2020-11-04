@@ -15,7 +15,9 @@ HISTSIZE=1000
 SAVEHIST=1000
 setopt autocd beep extendedglob
 bindkey -v
+set -o vi
 # End of lines configured by zsh-newuser-install
+
 # The following lines were added by compinstall
 zstyle :compinstall filename '/home/matt/.zshrc'
 
@@ -39,7 +41,7 @@ export EDITOR=vim
 ## oh-my-zsh
 export ZSH="$HOME/.config/oh-my-zsh"
 export ZSH_CUSTOM="${ZSH}/custom"
-plugins=(zsh-syntax-highlighting zsh-autosuggestions)
+plugins=(zsh-syntax-highlighting zsh-autosuggestions vi-mode)
 source $ZSH/oh-my-zsh.sh
 
 ## powerlevel10k theme
