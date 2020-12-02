@@ -26,7 +26,7 @@ LOCAL_PATHS+=("${HOME}/scripts")       # my scripts
 LOCAL_PATHS+=("/opt/samba/bin")        # SAMBA
 LOCAL_PATHS+=("/opt/samba/sbin")       # SAMBA
 LOCAL_PATHS+=("/opt/mysql/bin")        # MySQL
-# LOCAL_PATHS+=("/usr/local/go/bin")     # Go language
+LOCAL_PATHS+=("/usr/bin/core_perl")    # Go language
 ## Shell Completing
 # LOCAL_PATHS+=("/usr/local/aws/bin")      # aws cli
 
