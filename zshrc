@@ -53,7 +53,6 @@ complete -C '/bin/aws_completer' aws
 ###
 # Aliases
 ###
-# set ls coloring
 if [[ $(type -p lsd) ]]; then
   alias ls='lsd'
   alias ll='lsd -l'
@@ -73,9 +72,6 @@ else
   alias lla="ls $LS_OPTIONS -lA"
   alias lltr="ls $LS_OPTIONS -lAtr"
 fi
-alias grep='grep --color=auto'  ## grep coloring
-alias vi='/bin/vim'            ## vim instead of vi
-alias ducks='du -cksh * | sort -hr | head -n 15'  ## sorting alias
 
 if [[ -f ~/rc.d/dircolors ]]; then
   eval "$(dircolors ~/rc.d/dircolors)"
@@ -83,6 +79,11 @@ else
   eval "$(dircolors)"
 fi
 
+alias grep='grep --color=auto'  ## grep coloring
+alias vi='/bin/vim'            ## vim instead of vi
+alias ducks='du -cksh * | sort -hr | head -n 15'  ## sorting alias
+
+## terraform
 alias tf='terraform'
 alias tfp='terraform plan --out m1.plan'
 alias tfa='terraform apply m1.plan'
