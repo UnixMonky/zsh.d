@@ -53,7 +53,7 @@ complete -C '/bin/aws_completer' aws
 ###
 # Aliases
 ###
-if [[ $(type -p lsd) ]]; then
+if [[ $(command -v lsd) ]]; then
   alias ls='lsd'
   alias ll='lsd -l'
   alias la='lsd -a'
@@ -87,3 +87,5 @@ alias ducks='du -cksh * | sort -hr | head -n 15'  ## sorting alias
 alias tf='terraform'
 alias tfp='terraform plan --out m1.plan'
 alias tfa='terraform apply m1.plan'
+
+[[ ! $(command -v code) ]] && alias code='vscodium'
