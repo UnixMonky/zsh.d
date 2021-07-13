@@ -96,5 +96,7 @@ alias ducks='du -cksh * | sort -hr | head -n 15'  ## sorting alias
 alias tf='terraform'
 alias tfp='terraform plan --out m1.plan'
 alias tfa='terraform apply m1.plan'
+alias tfw='terraform workspace'
+alias tfi='terraform init'
 
 [[ ! $(command -v code) ]] && alias code='vscodium'
