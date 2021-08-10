@@ -37,3 +37,11 @@ done
 PATH=$(join_by : ${FULL_PATH[@]})
 export PATH
 unset join_by OS_PATH LOCAL_PATHS FULL_PATH
+
+###
+# Function Path
+###
+fpath+=('/home/matt/zsh.d/zfunctions')
+export FPATH
+autoload -Uz /home/matt/zsh.d/zfunctions/*(.:t)
+ 
