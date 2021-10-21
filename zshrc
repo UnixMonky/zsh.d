@@ -51,15 +51,6 @@ source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 complete -C '/bin/aws_completer' aws
 
 ###
-# Functions
-###
-function vtf() {
-  #echo "vscodium ~/${1}/git/terraform"
-  vscodium ~/${1}/git/terraform
-}
-
-
-###
 # Aliases
 ###
 if [[ $(command -v lsd) ]]; then

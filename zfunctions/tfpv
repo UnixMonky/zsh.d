@@ -1,10 +1,7 @@
 # terraform plan with outfile and variables for workspaces
-
-tfpv () {
-    workspace="$(terraform workspace show)"
-    if [[ "${workspace}" == "default" ]]; then
-        terraform plan -out=m1.plan -var-file=m1.vars
-    else
-        terraform plan -out=m1.plan -var-file=${workspace}.tfvars -var-file=m1.vars
-    fi
-}
+workspace="$(terraform workspace show)"
+if [[ "${workspace}" == "default" ]]; then
+    terraform plan -out=m1.plan -var-file=m1.vars
+else
+    terraform plan -out=m1.plan -var-file=${workspace}.tfvars -var-file=m1.vars
+fi

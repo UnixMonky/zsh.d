@@ -1,0 +1,2 @@
+git fetch origin master
+gd2 $(parse_git_branch) FETCH_HEAD | cat
