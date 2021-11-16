@@ -19,7 +19,7 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-m
 
 for F in zlogin zlogout zprofile zshenv zshrc; do
 
-ln -s ~/rc.d/$F ~/.${F}
+ln -s ~/zsh.d/$F ~/.${F}
 
 done
 
