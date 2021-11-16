@@ -41,10 +41,10 @@ unset join_by OS_PATH LOCAL_PATHS FULL_PATH
 ###
 # Function Path
 ###
-# fpath+=('/home/matt/zsh.d/zfunctions')
+# fpath+=('${HOME}/zsh.d/zfunctions')
 fpath=( ~/zsh.d/zfunctions "${fpath[@]}" )
 
 export FPATH
-# autoload -Uz /home/matt/zsh.d/zfunctions/*(.:t)
-autoload -Uz /home/matt/zsh.d/zfunctions/*
+# autoload -Uz ${HOME}/zsh.d/zfunctions/*(.:t)
+autoload -Uz ${HOME}/zsh.d/zfunctions/*
  
