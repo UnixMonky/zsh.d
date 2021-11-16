@@ -3,6 +3,6 @@
 ## session-wide environment variables.
 
 # Autostart X using startx after tty login.
-if [[ $(uname -s) != "Darwin"] && systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
+if [[ $(uname -s) != "Darwin" ]] && systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
 	exec startx
 fi
