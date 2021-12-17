@@ -30,6 +30,8 @@ LOCAL_PATHS+=("/opt/mysql/bin")        # MySQL
 LOCAL_PATHS+=("/usr/bin/core_perl")    # Go language
 ## Shell Completing
 # LOCAL_PATHS+=("/usr/local/aws/bin")      # aws cli
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+LOCAL_PATHS+=("${HOME}/.rvm/bin")        # rvm (ruby)
 
 FULL_PATH=()
 for PATH_ELEMENT in "${OS_PATH[@]}" "${LOCAL_PATHS[@]}"; do
@@ -43,9 +45,11 @@ unset join_by OS_PATH LOCAL_PATHS FULL_PATH
 # Function Path
 ###
 # fpath+=('${HOME}/zsh.d/zfunctions')
-fpath=( ~/zsh.d/zfunctions "${fpath[@]}" )
+fpath=( ${HOME}/zsh.d/zfunctions "${fpath[@]}" )
 
 export FPATH
 # autoload -Uz ${HOME}/zsh.d/zfunctions/*(.:t)
 autoload -Uz ${HOME}/zsh.d/zfunctions/*
  
+ ## ruby/rvm
+[[ -s "${HOME}/.rvm/scripts/rvm" ]] && source "${HOME}/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*

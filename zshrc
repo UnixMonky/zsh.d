@@ -94,3 +94,5 @@ alias tfw='terraform workspace'
 alias tfi='terraform init'
 
 [[ ! $(command -v code) ]] && alias code='vscodium'
+
+## End of configuration. Anything below this was added by an external process and need to be adjusted
