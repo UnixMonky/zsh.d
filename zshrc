@@ -51,7 +51,7 @@ else
 fi
 
 ## autocompletes
-complete -C '/bin/aws_completer' aws
+complete -C $(type -p aws_completer) aws
 
 ###
 # Aliases
