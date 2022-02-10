@@ -22,6 +22,7 @@ LOCAL_PATHS+=("/usr/local/sbin")       # local system binaries
 ## User-based local directories
 LOCAL_PATHS+=("${HOME}/.local/bin")    # user local binaries
 LOCAL_PATHS+=("${HOME}/lbin")          # user local binaries
+LOCAL_PATHS+=("${HOME}/bin")          # user local binaries
 LOCAL_PATHS+=("${HOME}/scripts")       # my scripts
 ## Utilities
 LOCAL_PATHS+=("/opt/samba/bin")        # SAMBA
