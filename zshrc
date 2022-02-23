@@ -95,5 +95,5 @@ alias tfi='terraform init'
 
 [[ ! $(command -v code) ]] && alias code='vscodium'
 ##
-alias cc_aws='aws_adfs_auth -u bp-mhuber495 < ~/.cc_aws'
+alias ccaws='aws_adfs_auth -u bp-mhuber495 < ~/.cc_aws'
 ## End of configuration. Anything below this was added by an external process and need to be adjusted
