@@ -53,6 +53,9 @@ fi
 ## autocompletes
 complete -C $(type -p aws_completer) aws
 
+## unset any automatic paging that has been seet
+unset PAGER
+
 ###
 # Aliases
 ###
@@ -82,18 +85,6 @@ else
   eval "$(dircolors)"
 fi
 
-alias grep='grep --color=auto'  ## grep coloring
-#alias vi='/bin/vim'            ## vim instead of vi
-alias ducks='du -cksh * | sort -hr | head -n 15'  ## sorting alias
-alias ccjump='jump -ck ~/.ssh/comcast_autobahn'
-## terraform
-alias tf='terraform'
-alias tfp='terraform plan --out m1.plan'
-alias tfa='terraform apply m1.plan'
-alias tfw='terraform workspace'
-alias tfi='terraform init'
+[[ -f ~/zsh.d/zalias ]] && .  ~/zsh.d/zalias
 
-[[ ! $(command -v code) ]] && alias code='vscodium'
-##
-alias ccaws='aws_adfs_auth -u bp-mhuber495 < ~/.cc_aws'
 ## End of configuration. Anything below this was added by an external process and need to be adjusted
