@@ -54,3 +54,6 @@ autoload -Uz ${HOME}/zsh.d/zfunctions/*
  
  ## ruby/rvm
 [[ -s "${HOME}/.rvm/scripts/rvm" ]] && source "${HOME}/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
+## AWS Vault
+export AWS_VAULT_BACKEND="file"

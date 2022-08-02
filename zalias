@@ -19,8 +19,13 @@ eval $(thefuck --alias)
 
 [[ ! $(command -v code) ]] && alias code='vscodium' ## vscodium instead of vscode
 
+## media
 alias tw='python3 ~/git/twitch-cli/src/main.py' ## twitch
+alias gdq="nohup streamlink twitch.tv/gamesdonequick best &" ## mpv gdq
 
 ## Comcast
-alias ccjump='jump -ck ~/.ssh/comcast_autobahn'
+alias ccjump='jump -ck ~/.ssh/comcast/comcast_autobahn'
 alias ccaws='aws_adfs_auth -u bp-mhuber495 < ~/.cc_aws'
+
+## Adaptavist i hostlist search
+alias isl='curl -s -u "$(<~/.config/data/okta)" "https://i.adaptavist.com/rest/api/content/62587972?expand=body.storage" | jq -r .body.storage.value | lynx -stdin -dump --width 500'
