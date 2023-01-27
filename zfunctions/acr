@@ -1,0 +1,4 @@
+PWD=$(pwd)
+cd ~/git/avst-cloud-runner
+avst-cloud-runner --no-report $@
+cd ${PWD}

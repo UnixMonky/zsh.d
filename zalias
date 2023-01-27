@@ -12,6 +12,8 @@ alias tfp='terraform plan --out m1.plan'
 alias tfa='terraform apply m1.plan'
 alias tfw='terraform workspace'
 alias tfi='terraform init'
+alias tfsl='terraform state list'
+alias tfss='terraform state show'
 # export TF_LOG="TRACE"
 # export TF_LOG_PATH="./logs/terraform.log"
 
@@ -25,7 +27,7 @@ alias gdq="nohup streamlink twitch.tv/gamesdonequick best &" ## mpv gdq
 
 ## Comcast
 alias ccjump='jump -ck ~/.ssh/comcast/comcast_autobahn'
-alias ccaws='aws_adfs_auth -u bp-mhuber495 < ~/.cc_aws'
+alias ccaws='aws_adfs_auth -u bp-mhuber495 < ~/.config/data/comcast_aws'
 
 ## Adaptavist i hostlist search
 alias isl='curl -s -u "$(<~/.config/data/okta)" "https://i.adaptavist.com/rest/api/content/62587972?expand=body.storage" | jq -r .body.storage.value | lynx -stdin -dump --width 500'

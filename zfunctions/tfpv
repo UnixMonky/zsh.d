@@ -1,7 +1,7 @@
 # terraform plan with outfile and variables for workspaces
 workspace="$(terraform workspace show)"
 if [[ "${workspace}" == "default" ]]; then
-    terraform plan -out=m1.plan -var-file=m1.vars
+    terraform plan -out=m1.plan -var-file=my.vars
 else
     terraform plan -out=m1.plan -var-file=${workspace}.tfvars -var-file=m1.vars
 fi

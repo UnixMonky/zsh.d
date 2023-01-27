@@ -40,7 +40,7 @@ export EDITOR=vim
 ## oh-my-zsh
 export ZSH="$HOME/.config/oh-my-zsh"
 export ZSH_CUSTOM="${ZSH}/custom"
-plugins=(zsh-syntax-highlighting zsh-autosuggestions vi-mode)
+plugins=(zsh-syntax-highlighting zsh-autosuggestions vi-mode zsh-aws-vault)
 source $ZSH/oh-my-zsh.sh
 
 ## powerlevel10k theme

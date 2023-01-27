@@ -1,0 +1,1 @@
+cat ~/.config/data/mskp | keepassxc-cli ${@:1:$(( $# - 1 ))}  ~/git/mskp/mskp.kdbx ${@[-1]}
