@@ -1,6 +1,6 @@
 tla=$(echo $1 | cut -d'-' -f1)
 region_list=("us-east-1" "us-east-2" "us-west-1" "us-west-2" "eu-west-1" "eu-west-2")
-if grep "^\[profile $tla\]$" ~/.aws/config; then
+if grep "^\[profile $tla\]$" ~/.aws/config > /dev/null; then
   profile=$tla
 else
   case $tla in
@@ -12,8 +12,10 @@ else
 fi
 
 for region in "${region_list[@]}"; do
+  echo -n "."
   instanceId=$(aws-vault exec $profile -- aws ec2 describe-instances --filter Name=tag:Name,Values=$1 Name=instance-state-name,Values=running --query 'Reservations[].Instances[].InstanceId' --output text --region $region)
   if [[ "${instanceId}" != "" ]]; then
     aws-vault exec $profile -- aws ssm start-session --target $instanceId --region $region
+    break
   fi
 done
