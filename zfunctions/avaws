@@ -1,0 +1,1 @@
+aws-vault exec ${1} -- aws "${@:2}"

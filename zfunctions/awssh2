@@ -15,10 +15,11 @@ fi
 if aws-vault exec $profile -- aws sts get-caller-identity &> /dev/null; then
   for region in "${region_list[@]}"; do
     echo -n "."
-    instanceId=$(aws-vault exec $profile -- aws ec2 describe-instances --filter Name=tag:Name,Values=$1 Name=instance-state-name,Values=running --query 'Reservations[].Instances[].InstanceId' --output text --region $region)
-    if [[ "${instanceId}" != "" ]]; then
-      aws-vault exec $profile -- aws ssm start-session --target $instanceId --region $region
-      break
+    instanceIds=($(aws-vault exec $profile -- aws ec2 describe-instances --filter Name=tag:Name,Values=$1 Name=instance-state-name,Values=running --query 'Reservations[].Instances[].InstanceId' --output text --region $region))
+    case ${#instanceIds[@]} in
+      0) true;;
+      1) aws-vault exec $profile -- aws ssm start-session --target $instanceId --region $region; break ;;
+      *) 
     fi
   done
 else

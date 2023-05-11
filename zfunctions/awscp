@@ -1,4 +1,9 @@
-tla=$(echo $1 | cut -d'-' -f1)
+for p in "$@"; do
+    host=$(echo $p | cut -d: -f1)
+    [[ "$host" != "$p" ]] && break
+done
+
+tla=$(echo $host | cut -d'-' -f1)
 region_list=("us-east-1" "us-east-2" "us-west-1" "us-west-2" "eu-west-1" "eu-west-2")
 if grep "^\[profile $tla\]$" ~/.aws/config > /dev/null; then
   profile=$tla
@@ -7,7 +12,6 @@ else
     # amica|aviva|avms|avst|ba|dfk|edf|fmi|fsnc|ggp|jel|jhn|jl|jlr|mmo|q2|sma|uyuni|welkr|wh|ws ) profile='ms' ;;
     ccp*|etwiki*|tkts*|tpx*|wiki*|backup* ) profile='saml' ;;
     usva* )                                 profile='estee' ;;
-    gl* )                                   profile='sbx' ;;
     *)                                      profile="ms" ;;
   esac;
 fi
@@ -15,9 +19,9 @@ fi
 if aws-vault exec $profile -- aws sts get-caller-identity &> /dev/null; then
   for region in "${region_list[@]}"; do
     echo -n "."
-    instanceId=$(aws-vault exec $profile -- aws ec2 describe-instances --filter Name=tag:Name,Values=$1 Name=instance-state-name,Values=running --query 'Reservations[].Instances[].InstanceId' --output text --region $region)
+    instanceId=$(aws-vault exec $profile -- aws ec2 describe-instances --filter Name=tag:Name,Values=$host Name=instance-state-name,Values=running --query 'Reservations[].Instances[].InstanceId' --output text --region $region)
     if [[ "${instanceId}" != "" ]]; then
-      aws-vault exec $profile -- aws ssm start-session --target $instanceId --region $region
+      scp -o ProxyCommand="sh -c \"aws-vault exec ${profile} -- aws ssm start-session --target ${instanceId} --region ${region} --document-name AWS-StartSSHSession --parameters 'portNumber=%p'\"" $@
       break
     fi
   done
