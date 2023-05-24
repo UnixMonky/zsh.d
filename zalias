@@ -9,12 +9,12 @@ alias pwgen='keepassxc-cli generate -lUnsL32 --exclude-similar'
 
 ## terraform
 # alias tf='terraform'
-alias tfp='tf plan --out m1.plan'
-alias tfa='terraform apply m1.plan'
-alias tfw='tf workspace'
+alias tfp='tf plan --out my.plan'
+alias tfa='terraform apply my.plan'
+alias tfw='terraform workspace'
 alias tfi='tf init'
-alias tfsl='tf state list'
-alias tfss='tf state show'
+alias tfsl='terraform state list'
+alias tfss='terraform state show'
 # export TF_LOG="TRACE"
 # export TF_LOG_PATH="./logs/terraform.log"
 
@@ -24,7 +24,7 @@ eval $(thefuck --alias)
 
 ## media
 alias tw='python3 ~/git/twitch-cli/src/main.py' ## twitch
-alias gdq="nohup streamlink twitch.tv/gamesdonequick best &" ## mpv gdq
+# alias gdq="nohup streamlink twitch.tv/gamesdonequick best &" ## mpv gdq
 
 ## Comcast
 alias ccjump='jump -ck ~/.ssh/comcast/comcast_autobahn'
