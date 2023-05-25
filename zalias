@@ -18,6 +18,13 @@ alias tfss='terraform state show'
 # export TF_LOG="TRACE"
 # export TF_LOG_PATH="./logs/terraform.log"
 
+## docker
+alias dps='docker ps'
+alias dpsa='docker ps -a'
+alias dpsq='docker ps -q'
+alias dpsaq='docker ps -aq'
+
+
 eval $(thefuck --alias)
 
 [[ ! $(command -v code) ]] && alias code='vscodium' ## vscodium instead of vscode
