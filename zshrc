@@ -8,6 +8,9 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# zsh-autocomplete
+source /usr/local/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=1000
@@ -18,12 +21,12 @@ set -o vi
 # End of lines configured by zsh-newuser-install
 
 # The following lines were added by compinstall
-zstyle :compinstall filename '${HOME}/.zshrc'
+# zstyle :compinstall filename '${HOME}/.zshrc'
 
-autoload -Uz compinit
-compinit
+# autoload -Uz compinit
+# compinit
 # End of lines added by compinstall
-autoload bashcompinit && bashcompinit
+# autoload bashcompinit && bashcompinit
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -40,7 +43,12 @@ export EDITOR=vim
 ## oh-my-zsh
 export ZSH="$HOME/.config/oh-my-zsh"
 export ZSH_CUSTOM="${ZSH}/custom"
-plugins=(zsh-syntax-highlighting zsh-autosuggestions vi-mode zsh-aws-vault docker)
+# zmodload zsh/mapfile
+case "${(L)$(hostname -s)}" in
+  "matts-mbp" )  plugins=(vi-mode zsh-aws-vault docker docker-compose minikube kubectl) ;;
+  "toadette"  )  plugins=(vi-mode) ;;
+esac
+# plugins=(zsh-syntax-highlighting zsh-autosuggestions vi-mode zsh-aws-vault docker docker-compose)
 source $ZSH/oh-my-zsh.sh
 
 ## powerlevel10k theme
@@ -86,5 +94,7 @@ else
 fi
 
 [[ -f ~/zsh.d/zalias ]] && .  ~/zsh.d/zalias
+
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 ## End of configuration. Anything below this was added by an external process and need to be adjusted
