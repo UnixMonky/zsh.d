@@ -7,7 +7,7 @@ else
     # amica|aviva|avms|avst|ba|dfk|edf|fmi|fsnc|ggp|jel|jhn|jl|jlr|mmo|q2|sma|uyuni|welkr|wh|ws ) profile='ms' ;;
     ccp*|etwiki*|tkts*|tpx*|wiki*|backup* ) profile='comcast' ;;
     usva* )                                 profile='estee' ;;
-    sbx*|lab*|gl-*)                         profile='sbx' ;;
+    sbx*|lab*|gl-*|k8s*)                         profile='sbx' ;;
     *)                                      profile="ms" ;;
   esac;
 fi
