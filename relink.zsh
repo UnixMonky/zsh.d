@@ -1,7 +1,6 @@
 #!/bin/zsh
 
 cd ${HOME}
-for F in $(ls git/zsh.d/z*); do
-  Z=$(basename $F)
-  ln -fs zsh.d/${Z} .${Z}
+for F in $(find git/zsh.d -type f -name "z*"); do
+  ln -fs ${F} .$(basename $F)
 done
