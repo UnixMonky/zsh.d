@@ -18,7 +18,7 @@ alias tfss='terraform state show'
 # export TF_LOG="TRACE"
 # export TF_LOG_PATH="./logs/terraform.log"
 
-eval $(thefuck --alias)
+# eval $(thefuck --alias)
 
 [[ ! $(command -v code) ]] && alias code='vscodium' ## vscodium instead of vscode
 
