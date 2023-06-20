@@ -8,8 +8,8 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# zsh-autocomplete
-source /usr/local/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+# zsh-autocomplete - not use we hate this
+# source /usr/local/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
@@ -46,7 +46,7 @@ export ZSH_CUSTOM="${ZSH}/custom"
 # zmodload zsh/mapfile
 case "${(L)$(hostname -s)}" in
   "matts-mbp" )  plugins=(vi-mode zsh-aws-vault docker docker-compose minikube kubectl) ;;
-  "toadette"  )  plugins=(vi-mode) ;;
+  "hestu"  )  plugins=(vi-mode zsh-autosuggestions) ;;
 esac
 # plugins=(zsh-syntax-highlighting zsh-autosuggestions vi-mode zsh-aws-vault docker docker-compose)
 source $ZSH/oh-my-zsh.sh
