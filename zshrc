@@ -4,12 +4,12 @@
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
 
 # zsh-autocomplete
-source /usr/local/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+# source /usr/local/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
@@ -29,7 +29,7 @@ set -o vi
 # autoload bashcompinit && bashcompinit
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 ## Set unique history files
 [[ ! -d ${HOME}/.history ]] && mkdir ${HOME}/.history
@@ -41,25 +41,25 @@ export VISUAL=vim
 export EDITOR=vim
 
 ## oh-my-zsh
-export ZSH="$HOME/.config/oh-my-zsh"
-export ZSH_CUSTOM="${ZSH}/custom"
+# export ZSH="$HOME/.config/oh-my-zsh"
+# export ZSH_CUSTOM="${ZSH}/custom"
 # zmodload zsh/mapfile
-case "${(L)$(hostname -s)}" in
-  "matts-mbp" )  plugins=(vi-mode zsh-aws-vault docker docker-compose minikube kubectl) ;;
-  "toadette"  )  plugins=(vi-mode) ;;
-esac
+# case "${(L)$(hostname -s)}" in
+#   "matts-mbp" )  plugins=(vi-mode zsh-aws-vault docker docker-compose minikube kubectl) ;;
+#   "toadette"  )  plugins=(vi-mode) ;;
+# esac
 # plugins=(zsh-syntax-highlighting zsh-autosuggestions vi-mode zsh-aws-vault docker docker-compose)
-source $ZSH/oh-my-zsh.sh
+# source $ZSH/oh-my-zsh.sh
 
 ## powerlevel10k theme
-if [[ $(uname -s) == "Darwin" ]]; then
-  source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
-else
-  source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
-fi
+# if [[ $(uname -s) == "Darwin" ]]; then
+#   source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
+# else
+#   source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+# fi
 
 ## autocompletes
-complete -C $(type -p aws_completer) aws
+# complete -C $(type -p aws_completer) aws
 
 ## unset any automatic paging that has been seet
 unset PAGER
@@ -95,6 +95,6 @@ fi
 
 [[ -f ~/zsh.d/zalias ]] && .  ~/zsh.d/zalias
 
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 ## End of configuration. Anything below this was added by an external process and need to be adjusted
