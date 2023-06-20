@@ -45,12 +45,12 @@ unset join_by OS_PATH LOCAL_PATHS FULL_PATH
 ###
 # Function Path
 ###
-# fpath+=('${0:a:h}/zfunctions')
-fpath=( ${0:a:h}/zfunctions "${fpath[@]}" )
+# fpath+=('${HOME}/zsh.d/zfunctions')
+fpath=( ${HOME}/git/zsh.d/zfunctions "${fpath[@]}" )
 
 export FPATH
-# autoload -Uz ${0:a:h}/zfunctions/*(.:t)
-autoload -Uz ${0:a:h}/zfunctions/*
+# autoload -Uz ${HOME}/zsh.d/zfunctions/*(.:t)
+autoload -Uz ${HOME}/got/zsh.d/zfunctions/*
  
  ## ruby/rvm
 # [[ -s "${HOME}/.rvm/scripts/rvm" ]] && source "${HOME}/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
