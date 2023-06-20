@@ -97,7 +97,7 @@ fi
 if [[ $(uname -s) == "Darwin" ]]; then
     source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 else
-    source /usr/share/zsh/plugins/zsh-suntax-highlighting/zsh-syntax-highlighting.zsh
+    source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
 ## End of configuration. Anything below this was added by an external process and need to be adjusted
