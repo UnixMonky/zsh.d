@@ -95,6 +95,7 @@ fi
 
 [[ -f ~/zsh.d/zalias ]] && .  ~/zsh.d/zalias
 
+alias install_ohmyzsh='sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"'
 # source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 ## End of configuration. Anything below this was added by an external process and need to be adjusted
