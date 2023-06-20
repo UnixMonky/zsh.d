@@ -50,7 +50,7 @@ fpath=( ${HOME}/git/zsh.d/zfunctions "${fpath[@]}" )
 
 export FPATH
 # autoload -Uz ${HOME}/zsh.d/zfunctions/*(.:t)
-autoload -Uz ${HOME}/got/zsh.d/zfunctions/*
+autoload -Uz ${HOME}/git/zsh.d/zfunctions/*
  
  ## ruby/rvm
 # [[ -s "${HOME}/.rvm/scripts/rvm" ]] && source "${HOME}/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
