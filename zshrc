@@ -87,13 +87,13 @@ else
   alias lltr="ls $LS_OPTIONS -lAtr"
 fi
 
-if [[ -f ~/zsh.d/dircolors ]]; then
-  eval "$(dircolors ~/zsh.d/dircolors)"
+if [[ -f ${0:a:h}/dircolors ]]; then
+  eval "$(dircolors ${0:a:h}/dircolors)"
 else
   eval "$(dircolors)"
 fi
 
-[[ -f ~/zsh.d/zalias ]] && .  ~/zsh.d/zalias
+[[ -f ${0:a:h}/zalias ]] && .  ${0:a:h}/zalias
 if [[ $(uname -s) == "Darwin" ]]; then
     source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 else

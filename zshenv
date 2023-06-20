@@ -45,15 +45,15 @@ unset join_by OS_PATH LOCAL_PATHS FULL_PATH
 ###
 # Function Path
 ###
-# fpath+=('${HOME}/zsh.d/zfunctions')
-fpath=( ${HOME}/zsh.d/zfunctions "${fpath[@]}" )
+# fpath+=('${0:a:h}/zfunctions')
+fpath=( ${0:a:h}/zfunctions "${fpath[@]}" )
 
 export FPATH
-# autoload -Uz ${HOME}/zsh.d/zfunctions/*(.:t)
-autoload -Uz ${HOME}/zsh.d/zfunctions/*
+# autoload -Uz ${0:a:h}/zfunctions/*(.:t)
+autoload -Uz ${0:a:h}/zfunctions/*
  
  ## ruby/rvm
-[[ -s "${HOME}/.rvm/scripts/rvm" ]] && source "${HOME}/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+# [[ -s "${HOME}/.rvm/scripts/rvm" ]] && source "${HOME}/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 ## AWS Vault
 #export AWS_VAULT_BACKEND="file"
