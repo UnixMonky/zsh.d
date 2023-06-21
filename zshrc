@@ -94,6 +94,7 @@ else
 fi
 
 [[ -f ${ZSH_D}/zalias ]] && . ${ZSH_D}/zalias
+
 if [[ $(uname -s) == "Darwin" ]]; then
     source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 else

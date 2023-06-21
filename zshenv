@@ -2,7 +2,8 @@
 ## that produce output or assume the shell is attached to a TTY. When this file
 ## exists it will always be read.
 
-export ZSH_D=$( cd -- "$( dirname -- "${ZSH_SOURCE[0]}" )" &> /dev/null && pwd )
+ZSH_D=$(dirname $(readlink -f $(print -P %N)))
+
 ###
 # PATH
 ###
