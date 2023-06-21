@@ -1,4 +1,4 @@
-## Used for setting user's interactive shell configuration and executing 
+## Used for setting user's interactive shell configuration and executing
 ## commands, will be read when starting as an interactive shell.
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -45,7 +45,7 @@ export ZSH="$HOME/.config/oh-my-zsh"
 export ZSH_CUSTOM="${ZSH}/custom"
 # zmodload zsh/mapfile
 case "${(L)$(hostname -s)}" in
-  "matts-mbp" )  plugins=(vi-mode zsh-aws-vault docker docker-compose minikube kubectl) ;;
+  "matts-mbp" )  plugins=(vi-mode zsh-autosuggestions zsh-aws-vault docker docker-compose minikube kubectl) ;;
   "hestu"  )  plugins=(vi-mode zsh-autosuggestions) ;;
 esac
 # plugins=(zsh-syntax-highlighting zsh-autosuggestions vi-mode zsh-aws-vault docker docker-compose)
