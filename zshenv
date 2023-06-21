@@ -2,6 +2,7 @@
 ## that produce output or assume the shell is attached to a TTY. When this file
 ## exists it will always be read.
 
+export ZSH_D=$( cd -- "$( dirname -- "${ZSH_SOURCE[0]}" )" &> /dev/null && pwd )
 ###
 # PATH
 ###
@@ -45,16 +46,12 @@ unset join_by OS_PATH LOCAL_PATHS FULL_PATH
 ###
 # Function Path
 ###
-# fpath+=('${HOME}/zsh.d/zfunctions')
-fpath=("~/git/zsh.d/zfunctions" $fpath)
-
+fpath=("${ZSH_D}/zfunctions" $fpath)
 export FPATH
-# autoload -Uz ${HOME}/zsh.d/zfunctions/*(.:t)
-autoload -Uz ~/git/zsh.d/zfunctions/*
+autoload -Uz ${ZSH_D}/zfunctions/*
 
- ## ruby/rvm
+## ruby/rvm
 # [[ -s "${HOME}/.rvm/scripts/rvm" ]] && source "${HOME}/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 ## AWS Vault
-#export AWS_VAULT_BACKEND="file"
 export AWS_VAULT_BACKEND="keychain"

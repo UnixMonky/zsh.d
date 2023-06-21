@@ -1,10 +1,6 @@
 # zsh_configs
 My custom zsh configs
 
-export ZSH=.config/oh-my-zsh
-
-pacaur -S zsh ttf-meslo-nerd-font-powerlevel10k
-
 export ZSH=~/.config/oh-my-zsh
 
 export ZSH_CUSTOM=~/.config/oh-my-zsh/custom
@@ -21,9 +17,7 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-m
 MAC: brew install zsh-autosuggestions
 (check if arch is similar)
 
-for F in zlogin zlogout zprofile zshenv zshrc; do
 
-ln -s ~/zsh.d/$F ~/.${F}
 
 done
 
