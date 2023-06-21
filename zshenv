@@ -1,5 +1,5 @@
-## Used for setting user's environment variables; it should not contain commands 
-## that produce output or assume the shell is attached to a TTY. When this file 
+## Used for setting user's environment variables; it should not contain commands
+## that produce output or assume the shell is attached to a TTY. When this file
 ## exists it will always be read.
 
 ###
@@ -46,12 +46,12 @@ unset join_by OS_PATH LOCAL_PATHS FULL_PATH
 # Function Path
 ###
 # fpath+=('${HOME}/zsh.d/zfunctions')
-fpath=( ${HOME}/git/zsh.d/zfunctions "${fpath[@]}" )
+fpath=("~/git/zsh.d/zfunctions" $fpath)
 
 export FPATH
 # autoload -Uz ${HOME}/zsh.d/zfunctions/*(.:t)
-autoload -Uz ${HOME}/git/zsh.d/zfunctions/*
- 
+autoload -Uz ~/git/zsh.d/zfunctions/*
+
  ## ruby/rvm
 # [[ -s "${HOME}/.rvm/scripts/rvm" ]] && source "${HOME}/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
