@@ -1,5 +1,6 @@
 tla=$(echo $1 | cut -d'-' -f1)
-region_list=("us-east-1" "us-east-2" "us-west-1" "us-west-2" "eu-west-1" "eu-west-2")
+[[ -n "$2" ]] && host="$2" || host="$1"
+region_list=("us-east-1" "us-east-2" "us-west-1" "us-west-2" "eu-west-1" "eu-west-2" "ca-central-1")
 if grep "^\[profile $tla\]$" ~/.aws/config > /dev/null; then
   profile=$tla
 else
@@ -7,7 +8,11 @@ else
     # amica|aviva|avms|avst|ba|dfk|edf|fmi|fsnc|ggp|jel|jhn|jl|jlr|mmo|q2|sma|uyuni|welkr|wh|ws ) profile='ms' ;;
     ccp*|etwiki*|tkts*|tpx*|wiki*|backup* ) profile='comcast' ;;
     usva* )                                 profile='estee' ;;
-    sbx*|lab*|gl-*|k8s*)                         profile='sbx' ;;
+    a79*|a83* )                             profile='btx-gl' ;;
+    a00*|a81*|btxuat )                             profile='btx-gl-dev' ;;
+    sbx*|lab*|gl-*|k8s* )                   profile='sbx' ;;
+    *btx*|*maxit*|uat* )
+      if [[ $host =~ uat ]]; then profile='btx-gl-dev'; else profile='btx-gl'; fi ;;
     *)                                      profile="ms" ;;
   esac;
 fi
@@ -24,7 +29,7 @@ if awscli sts get-caller-identity &> /dev/null; then
   for region in "${region_list[@]}"; do
     echo -n "."
     # instanceIds=($()
-    IFS=$'\n' instanceIds=($(awscli ec2 describe-instances --filter Name=tag:Name,Values="$1*" Name=instance-state-name,Values=running --query "Reservations[].Instances[].[Tags[?Key=='Name'] | [0].Value,InstanceId]" --output text --region $region))
+    IFS=$'\n' instanceIds=($(awscli ec2 describe-instances --filter Name=tag:Name,Values="*${host}*" Name=instance-state-name,Values=running --query "Reservations[].Instances[].[Tags[?Key=='Name'] | [0].Value,InstanceId]" --output text --region $region))
     if [[ -n $instanceIds ]]; then
       echo
       if [[ $(wc -l <<< "${instanceIds}" | xargs) == 1 ]]; then
