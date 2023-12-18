@@ -10,11 +10,15 @@ alias pwgen='keepassxc-cli generate -lUnsL32 --exclude-similar'
 ## terraform
 # alias tf='terraform'
 alias tfp='tf plan --out my.plan'
-alias tfa='terraform apply my.plan'
-alias tfw='terraform workspace'
+# alias tfa='terraform apply my.plan'
+# alias tfw='terraform workspace'
+alias tfa='tofu apply my.plan'
+alias tfw='tofu workspace'
 alias tfi='tf init'
-alias tfsl='terraform state list'
-alias tfss='terraform state show'
+# alias tfsl='terraform state list'
+# alias tfss='terraform state show'
+alias tfsl='tofu state list'
+alias tfss='tofu state show'
 # export TF_LOG="TRACE"
 # export TF_LOG_PATH="./logs/terraform.log"
 

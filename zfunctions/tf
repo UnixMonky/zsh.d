@@ -1,7 +1,10 @@
 # terraform plan with outfile and variables for workspaces
-workspace="$(terraform workspace show)"
+# workspace="$(terraform workspace show)"
+workspace="$(tofu workspace show)"
 cmd=$1; shift
 [[ -f my.vars ]] && varFile="-var-file=my.vars"
 [[ "${workspace}" != "default" ]] && workVars="-var-file=${workspace}.tfvars"
-echo terraform ${cmd} ${varFile} ${workVars} ${@}
-terraform ${cmd} ${varFile} ${workVars} ${@}
+# echo terraform ${cmd} ${varFile} ${workVars} ${@}
+# terraform ${cmd} ${varFile} ${workVars} ${@}
+echo tofu ${cmd} ${varFile} ${workVars} ${@}
+tofu ${cmd} ${varFile} ${workVars} ${@}
