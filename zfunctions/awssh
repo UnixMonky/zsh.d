@@ -11,8 +11,8 @@ else
     a79*|a83* )                             profile='btx-gl' ;;
     a00*|a81*|btxuat )                             profile='btx-gl-dev' ;;
     sbx*|lab*|gl-*|k8s* )                   profile='sbx' ;;
-    *btx*|*maxit*|uat* )
-      if [[ $host =~ uat ]]; then profile='btx-gl-dev'; else profile='btx-gl'; fi ;;
+    *bnx*|*maxit*|uat* )
+      if [[ $host =~ uat ]]; then profile='btx-uat'; else profile='btx-prod'; fi ;;
     *)                                      profile="ms" ;;
   esac;
 fi
