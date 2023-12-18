@@ -1,0 +1,1 @@
+curl -sH "Authorization: Bearer $(<~/.config/data/tracker_pat)" "https://tracker.adaptavist.com/rest/api/latest/${@}"
