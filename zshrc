@@ -53,7 +53,8 @@ source $ZSH/oh-my-zsh.sh
 
 ## powerlevel10k theme
 if [[ $(uname -s) == "Darwin" ]]; then
-  source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
+  # source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
+  source /usr/local/share/powerlevel10k/powerlevel10k.zsh-theme
 else
   source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 fi
