@@ -1,0 +1,2 @@
+source ${HOME}/git/twitch-cli/.venv/bin/activate
+python3 ~/git/twitch-cli/src/main.py $*
