@@ -9,8 +9,8 @@ else
     ccp*|etwiki*|tkts*|tpx*|wiki*|backup* ) profile='comcast' ;;
     usva* )                                 profile='estee' ;;
     a79*|a83* )                             profile='btx-gl' ;;
-    a00*|a81*|btxuat )                             profile='btx-gl-dev' ;;
-    sbx*|lab*|gl-*|k8s* )                   profile='sbx' ;;
+    a00*|a81*|btxuat )                      profile='btx-gl-dev' ;;
+    sbx*|lab*|gl-*|k8s*|cfn-*|msh-* )       profile='sbx' ;;
     *bnx*|*maxit*|uat* )
       if [[ $host =~ uat ]]; then profile='btx-uat'; else profile='btx-prod'; fi ;;
     *)                                      profile="ms" ;;
@@ -28,8 +28,11 @@ function awscli {
 if awscli sts get-caller-identity &> /dev/null; then
   for region in "${region_list[@]}"; do
     echo -n "."
-    # instanceIds=($()
-    IFS=$'\n' instanceIds=($(awscli ec2 describe-instances --filter Name=tag:Name,Values="*${host}*" Name=instance-state-name,Values=running --query "Reservations[].Instances[].[Tags[?Key=='Name'] | [0].Value,InstanceId]" --output text --region $region))
+    if [[ $host == i-* ]]; then
+        IFS=$'\n' instanceIds=($(awscli ec2 describe-instances --filter Name=instance-id,Values="${host}" Name=instance-state-name,Values=running --query "Reservations[].Instances[].[Tags[?Key=='Name'] | [0].Value,InstanceId]" --output text --region $region))
+    else
+        IFS=$'\n' instanceIds=($(awscli ec2 describe-instances --filter Name=tag:Name,Values="*${host}*" Name=instance-state-name,Values=running --query "Reservations[].Instances[].[Tags[?Key=='Name'] | [0].Value,InstanceId]" --output text --region $region))
+    fi
     if [[ -n $instanceIds ]]; then
       echo
       if [[ $(wc -l <<< "${instanceIds}" | xargs) == 1 ]]; then
