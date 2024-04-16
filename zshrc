@@ -12,8 +12,8 @@ fi
 # source /usr/local/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
 # Determine processor and set vars appropriately
-case $(uname -p) in
-  i386)
+case $(uname -m) in
+  x86_64)
     share="/usr/local/share" ;;
   arm64)
     share="/opt/homebrew/share" ;;
@@ -53,7 +53,8 @@ export ZSH="$HOME/.config/oh-my-zsh"
 export ZSH_CUSTOM="${ZSH}/custom"
 # zmodload zsh/mapfile
 case "${(L)$(hostname -s)}" in
-  matts-mbp|matts-macbook-pro )  plugins=(vi-mode zsh-autosuggestions zsh-aws-vault docker docker-compose minikube kubectl) ;;
+  matts-mbp)  plugins=(vi-mode zsh-autosuggestions zsh-aws-vault docker docker-compose minikube kubectl) ;;
+  daxter )  plugins=(vi-mode zsh-autosuggestions) ;;
   hestu  )  plugins=(vi-mode zsh-autosuggestions) ;;
 esac
 # plugins=(zsh-syntax-highlighting zsh-autosuggestions vi-mode zsh-aws-vault docker docker-compose)
@@ -61,7 +62,7 @@ source $ZSH/oh-my-zsh.sh
 
 ## powerlevel10k theme
 if [[ $(uname -s) == "Darwin" ]]; then
-  # source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
+    source ${share}/powerlevel10k/powerlevel10k.zsh-theme
     source ${share}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 else
   source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
