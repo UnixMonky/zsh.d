@@ -11,6 +11,14 @@ fi
 # zsh-autocomplete - not use we hate this
 # source /usr/local/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
+# Determine processor and set vars appropriately
+case $(uname -p) in
+  i386)
+    share="/usr/local/share" ;;
+  arm64)
+    share="/opt/homebrew/share" ;;
+esac
+
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=1000
@@ -54,7 +62,7 @@ source $ZSH/oh-my-zsh.sh
 ## powerlevel10k theme
 if [[ $(uname -s) == "Darwin" ]]; then
   # source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
-  source /usr/local/share/powerlevel10k/powerlevel10k.zsh-theme
+    source ${share}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 else
   source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 fi
@@ -98,7 +106,7 @@ fi
 
 
 if [[ $(uname -s) == "Darwin" ]]; then
-    source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    source ${share}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 else
     source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
