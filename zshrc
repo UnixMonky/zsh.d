@@ -54,7 +54,7 @@ export ZSH_CUSTOM="${ZSH}/custom"
 # zmodload zsh/mapfile
 case "${(L)$(hostname -s)}" in
   matts-mbp)  plugins=(vi-mode zsh-autosuggestions zsh-aws-vault docker docker-compose minikube kubectl) ;;
-  daxter )  plugins=(vi-mode zsh-autosuggestions) ;;
+  daxter )  plugins=(vi-mode zsh-aws-vault) ;;
   hestu  )  plugins=(vi-mode zsh-autosuggestions) ;;
 esac
 # plugins=(zsh-syntax-highlighting zsh-autosuggestions vi-mode zsh-aws-vault docker docker-compose)
@@ -97,17 +97,18 @@ else
   alias lltr="ls $LS_OPTIONS -lAtr"
 fi
 
-if [[ -f ${ZSH_D}/dircolors ]]; then
-  eval "$(dircolors ${ZSH_D}/dircolors)"
-else
-  eval "$(dircolors)"
-fi
+#if [[ -f ${ZSH_D}/dircolors ]]; then
+#  eval "$(dircolors ${ZSH_D}/dircolors)"
+#else
+#  eval "$(dircolors)"
+#fi
 
 [[ -f ${ZSH_D}/zalias ]] && . ${ZSH_D}/zalias
 
 
 if [[ $(uname -s) == "Darwin" ]]; then
     source ${share}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    source ${share}/zsh-autosuggestions/zsh-autosuggestions.zsh
 else
     source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
