@@ -10,7 +10,7 @@ else
     usva* )                                 profile='estee' ;;
     a79*|a83* )                             profile='btx-gl' ;;
     a00*|a81*|btxuat )                      profile='btx-gl-dev' ;;
-    sbx*|lab*|gl-*|k8s*|cfn-*|msh-* )       profile='sbx' ;;
+    sbx*|lab*|gl*|k8s*|cfn*|msh* )          profile='sbx' ;;
     *bnx*|*maxit*|uat* )
       if [[ $host =~ uat ]]; then profile='btx-uat'; else profile='btx-prod'; fi ;;
     *)                                      profile="ms" ;;
