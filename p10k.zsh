@@ -1,0 +1,1 @@
+/Users/mhuber/.config/p10k.zsh

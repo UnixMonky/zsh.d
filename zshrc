@@ -54,7 +54,7 @@ export ZSH_CUSTOM="${ZSH}/custom"
 # zmodload zsh/mapfile
 case "${(L)$(hostname -s)}" in
   matts-mbp)  plugins=(vi-mode zsh-autosuggestions zsh-aws-vault docker docker-compose minikube kubectl) ;;
-  daxter )  plugins=(vi-mode zsh-aws-vault) ;;
+  daxter )  plugins=(vi-mode zsh-aws-vault 1password) ;;
   hestu  )  plugins=(vi-mode zsh-autosuggestions) ;;
 esac
 # plugins=(zsh-syntax-highlighting zsh-autosuggestions vi-mode zsh-aws-vault docker docker-compose)

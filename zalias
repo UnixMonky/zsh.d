@@ -14,7 +14,8 @@ alias tfp='tf plan --out my.plan'
 # alias tfw='terraform workspace'
 alias tfa='tofu apply my.plan'
 alias tfw='tofu workspace'
-alias tfi='tf init'
+alias tfi='tofu init'
+alias tfiu='tofu init -upgrade'
 # alias tfsl='terraform state list'
 # alias tfss='terraform state show'
 alias tfsl='tofu state list'
@@ -23,6 +24,8 @@ alias tfss='tofu state show'
 # export TF_LOG_PATH="./logs/terraform.log"
 
 #eval $(thefuck --alias)
+# 1password cli
+eval "$(op completion zsh)"; compdef _op op
 
 [[ ! $(command -v code) ]] && alias code='vscodium' ## vscodium instead of vscode
 
@@ -34,6 +37,9 @@ alias tfss='tofu state show'
 alias ccjump='jump -ck ~/.ssh/comcast/comcast_autobahn'
 #alias ccaws='aws_adfs_auth -u bp-mhuber495 < ~/.config/data/comcast_aws'
 alias ccaws='aadawscli --account-id 306827744287 --role ApplicationOwner --app-id c50a7162-4f70-4ca2-8914-8aba9c950afb --show-tabular-output --profile-name comcast'
+
+# Estee
+alias elcoaws='saml2aws login --force --skip-prompt  --idp-provider Browser --url https://console.elco.cloud --profile elc --region us-east-1 --role arn:aws:iam::122577706526:role/AdaptavistAdmin'
 
 ## Adaptavist i hostlist search
 alias isl='curl -s -u "$(<~/.config/data/okta)" "https://i.adaptavist.com/rest/api/content/62587972?expand=body.storage" | jq -r .body.storage.value | lynx -stdin -dump --width 500'

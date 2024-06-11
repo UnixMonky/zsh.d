@@ -20,11 +20,10 @@ region_list=("us-east-1" "us-east-2" "us-west-1" "us-west-2" "eu-west-1" "eu-wes
 
 function awscli {
   # set -x
-  if [[ "$profile" == "comcast" ]]; then
-    aws --profile comcast "$@"
-  else
-    aws-vault exec $profile -- aws $@
-  fi
+  case ${profile} in
+    comcast|cc|estee|elco|elc ) aws --profile ${profile} "$@" ;;
+    *                         ) aws-vault exec $profile -- aws $@ ;;
+  esac
 }
 
 ## Check if we can auth
