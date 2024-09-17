@@ -23,9 +23,6 @@ esac
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
-setopt autocd beep extendedglob
-bindkey -v
-set -o vi
 # End of lines configured by zsh-newuser-install
 
 # The following lines were added by compinstall
@@ -54,7 +51,8 @@ export ZSH_CUSTOM="${ZSH}/custom"
 # zmodload zsh/mapfile
 case "${(L)$(hostname -s)}" in
   matts-mbp)  plugins=(vi-mode zsh-autosuggestions zsh-aws-vault docker docker-compose minikube kubectl) ;;
-  daxter )  plugins=(vi-mode zsh-aws-vault 1password) ;;
+ # daxter )  plugins=(vi-mode zsh-aws-vault 1password kubectl minikube) ;;
+  daxter )  plugins=(zsh-aws-vault 1password kubectl minikube) ;;
   hestu  )  plugins=(vi-mode zsh-autosuggestions) ;;
 esac
 # plugins=(zsh-syntax-highlighting zsh-autosuggestions vi-mode zsh-aws-vault docker docker-compose)
@@ -112,5 +110,9 @@ if [[ $(uname -s) == "Darwin" ]]; then
 else
     source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
+
+setopt autocd beep extendedglob
+bindkey -v
+set -o vi
 
 ## End of configuration. Anything below this was added by an external process and need to be adjusted
