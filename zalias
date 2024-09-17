@@ -5,7 +5,7 @@
 alias grep='grep --color=auto'  ## grep coloring
 #alias vi='/bin/vim'            ## vim instead of vi
 alias ducks='du -cksh * | sort -hr | head -n 15'  ## sorting alias
-alias pwgen='keepassxc-cli generate -lUnsL32 --exclude-similar'
+# alias pwgen='keepassxc-cli generate -lUnsL32 --exclude-similar'
 
 ## terraform
 # alias tf='terraform'
@@ -39,7 +39,7 @@ alias ccjump='jump -ck ~/.ssh/comcast/comcast_autobahn'
 alias ccaws='aadawscli --account-id 306827744287 --role ApplicationOwner --app-id c50a7162-4f70-4ca2-8914-8aba9c950afb --show-tabular-output --profile-name comcast'
 
 # Estee
-alias elcoaws='saml2aws login --force --skip-prompt  --idp-provider Browser --url https://console.elco.cloud --profile elc --region us-east-1 --role arn:aws:iam::122577706526:role/AdaptavistAdmin'
+alias elcaws='saml2aws login --force --skip-prompt  --idp-provider Browser --url https://console.elco.cloud --profile elc --region us-east-1 --role arn:aws:iam::122577706526:role/AdaptavistAdmin'
 
 ## Adaptavist i hostlist search
 alias isl='curl -s -u "$(<~/.config/data/okta)" "https://i.adaptavist.com/rest/api/content/62587972?expand=body.storage" | jq -r .body.storage.value | lynx -stdin -dump --width 500'
