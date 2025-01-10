@@ -36,6 +36,8 @@ LOCAL_PATHS+=("/usr/bin/core_perl")    # Go language
 # LOCAL_PATHS+=("/usr/local/aws/bin")      # aws cli
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 LOCAL_PATHS+=("${HOME}/.rvm/bin")        # rvm (ruby)
+## Deskflow
+LOCAL_PATHS+=("${HOME}/git/deskflow/deps/qt/6.7.2/macos/bin")
 
 FULL_PATH=()
 for PATH_ELEMENT in "${OS_PATH[@]}" "${LOCAL_PATHS[@]}"; do
@@ -57,3 +59,6 @@ autoload -Uz ${ZSH_D}/zfunctions/*
 
 ## AWS Vault
 export AWS_VAULT_BACKEND="keychain"
+
+## Deskflow
+export CMAKE_PREFIX_PATH="${HOME}/git/deskflow/deps/qt/6.7.2/macos:$CMAKE_PREFIX_PATH"

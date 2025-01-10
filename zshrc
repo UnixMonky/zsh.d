@@ -114,9 +114,3 @@ fi
 setopt autocd beep extendedglob
 bindkey -v
 set -o vi
-
-## End of configuration. Anything below this was added by an external process and need to be adjusted
-
-export CMAKE_PREFIX_PATH="/Users/matt/git/deskflow/deps/qt/6.7.2/macos:$CMAKE_PREFIX_PATH"
-
-export PATH="/Users/matt/git/deskflow/deps/qt/6.7.2/macos/bin:$PATH"
