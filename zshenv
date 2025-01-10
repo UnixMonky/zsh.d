@@ -18,8 +18,8 @@ OS_PATH+=("/usr/ucb")
 ## Local Directories
 LOCAL_PATHS=()
 LOCAL_PATHS+=("/usr/local/opt/coreutils/libexec/gnubin")        # macos coreutils
-LOCAL_PATHS+=("/usr/local/bin")        # local binaries
 LOCAL_PATHS+=("/opt/homebrew/bin")        # local binaries
+LOCAL_PATHS+=("/usr/local/bin")        # local binaries
 LOCAL_PATHS+=("/usr/local/sbin")       # local system binaries
 # LOCAL_PATHS+=("/snap/bin")             # local snap binaries
 ## User-based local directories
