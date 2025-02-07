@@ -31,14 +31,10 @@ eval "$(op completion zsh)"; compdef _op op
 
 [[ -f ~/.data/ldap_admin ]] && alias ldapvi=/opt/homebrew/bin/ldapvi -w $(<~/.data/ldap_admin) --discover
 
-## media
-# alias tw='python3 ~/git/twitch-cli/src/main.py' ## twitch
-# alias gdq="nohup streamlink twitch.tv/gamesdonequick best &" ## mpv gdq
+## git
+alias git-rm-branch="git show-ref --quiet refs/heads/main && git checkout main || git checkout master; git fetch --prune; git branch -vv | grep 'gone]' | awk '{print \$1}' | xargs git branch -D"
 
-## Comcast
+## Customer Specific
 [[ -f ~/.ssh/comcast/comcast_autobahn ]] && alias ccjump='jump -ck ~/.ssh/comcast/comcast_autobahn'
-#alias ccaws='aws_adfs_auth -u bp-mhuber495 < ~/.config/data/comcast_aws'
 [[ $(command -v aadawscli) ]] && alias ccaws='aadawscli --account-id 306827744287 --role ApplicationOwner --app-id c50a7162-4f70-4ca2-8914-8aba9c950afb --show-tabular-output --profile-name comcast'
-
-# Estee
 [[ $(command -v saml2aws) ]] && alias elcaws='saml2aws login --force --skip-prompt  --idp-provider Browser --url https://console.elco.cloud --profile elc --region us-east-1 --role arn:aws:iam::122577706526:role/AdaptavistAdmin'
