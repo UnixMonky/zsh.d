@@ -1,6 +1,6 @@
 # get the list of known profiles
 # profileList="$( aws-vault list --profiles )"
-set -x
+# set -x
 
 # check if $1 is a known profile
 if (aws-vault list --profiles | egrep -q "^${1}$" ); then
@@ -16,7 +16,7 @@ else
   fi
   host=${1}
 fi
-set +x
+
 region_list=("us-east-1" "us-east-2" "us-west-1" "us-west-2" "eu-west-1" "eu-west-2" "ca-central-1")
 
 function awscli {
