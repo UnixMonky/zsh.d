@@ -1,0 +1,65 @@
+# get the list of known profiles
+# profileList="$( aws-vault list --profiles )"
+# set -x
+
+# check if $1 is a known profile
+if (aws-vault list --profiles | egrep -q "^${1}$" ); then
+    profile=${1}
+    host=${2}
+    rds=${3}
+else
+  tla=$(echo $1 | cut -d'-' -f1)
+  [[ $1 == usva* ]] && tla="elc"
+  if (aws-vault list --profiles | egrep -q "^${tla}$" ); then
+    profile=${tla}
+  else
+    profile="ms"
+  fi
+  host=${1}
+  rds=${2}
+fi
+
+region_list=("us-east-1" "us-east-2" "us-west-1" "us-west-2" "eu-west-1" "eu-west-2" "ca-central-1")
+
+function awscli {
+  # set -x
+  case ${profile} in
+    comcast|cc|estee|elco|elc ) aws --profile ${profile} "$@" ;;
+    *                         ) aws-vault exec $profile -- aws $@ ;;
+  esac
+}
+
+## Check if we can auth
+# authError="$(awscli sts get-caller-identity 2>&1 > /dev/null)"
+# if [[ -n ${authError} ]]; then
+#   echo "[ERR] Unable to authenticate to AWS, exiting ..."
+#   echo "${authError}"
+#   return
+# fi
+
+for region in "${region_list[@]}"; do
+  echo -n "."
+  if [[ $host == i-* ]]; then
+      IFS=$'\n' instanceIds=($(awscli ec2 describe-instances --filter Name=instance-id,Values="${host}" Name=instance-state-name,Values=running --query "Reservations[].Instances[].[Tags[?Key=='Name'] | [0].Value,InstanceId]" --output text --region $region))
+  else
+      IFS=$'\n' instanceIds=($(awscli ec2 describe-instances --filter Name=tag:Name,Values="*${host}*" Name=instance-state-name,Values=running --query "Reservations[].Instances[].[Tags[?Key=='Name'] | [0].Value,InstanceId]" --output text --region $region))
+  fi
+  if [[ -n $instanceIds ]]; then
+    echo
+    if [[ $(wc -l <<< "${instanceIds}" | xargs) == 1 ]]; then
+      # awscli ssm start-session --target $(cut -f2 <<< "${instanceIds}") --region $region
+        echo "Opening localhost:13579 -> $(cut -f1 <<< "${instanceIds}") -> $rds:5432"
+        awscli ssm start-session --target $(cut -f2 <<< "${instanceIds}") --region $region --document-name AWS-StartPortForwardingSessionToRemoteHost --parameters host="${rds}",portNumber="5432",localPortNumber="13579"
+      break 2
+    else
+      COLUMNS=1
+      PS3="Select an instance > "
+      select option in ${instanceIds[@]}; do
+        instanceId=$(cut -f2 <<< "${option}")
+        echo "Opening localhost:13579 -> $$(cut -f1 <<< "${option}") -> $rds:5432"
+        awscli ssm start-session --target $instanceId --region $region --document-name AWS-StartPortForwardingSessionToRemoteHost --parameters host="${rds}",portNumber="5432",localPortNumber="13579"
+        break 2
+      done
+    fi
+  fi
+done
