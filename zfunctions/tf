@@ -2,40 +2,37 @@
 local workspace cmd varFile workVars opt
 workspace="$(tofu workspace show)"
 cmd=$1; shift
+
 case $cmd in
     a|apply)
-        cmd="apply"
         [[ $# -eq 0 ]] && [[ -f my.plan ]] && varFile="my.plan"
+        cmd="apply"
         ;;
     destroy)
-        cmd="destroy"
         [[ -f my.vars ]] && varFile="-var-file=my.vars"
         [[ "${workspace}" != "default" ]] && [[ -f ${workspace}.tfvars ]] && workVars="-var-file=${workspace}.tfvars"
+        cmd="destroy"
+        ;;
+    i|iu|init)
+        [[ ${cmd:1:2} == "u" ]] && opt="-upgrade"
+        cmd="init"
         ;;
     p|plan)
-        cmd="plan"
         [[ -f my.vars ]] && varFile="-var-file=my.vars"
         [[ "${workspace}" != "default" ]] && [[ -f ${workspace}.tfvars ]] && workVars="-var-file=${workspace}.tfvars"
         opt="-out=my.plan"
+        cmd="plan"
         ;;
-    s|state)
-        cmd="state"
-        case $1 in
-          l) opt="list"; shift;;
-          s) opt="show"; shift;;
-        esac
-        ;;
-    ss|sl)
-        c=${cmd:1:2}
-        cmd="state"
-        case $c in
+    s?|state)
+        case ${cmd:1:2} in
           l) opt="list"; [[ $# > 1 ]] && shift;;
           s) opt="show"; [[ $# > 1 ]] && shift;;
         esac
+        cmd="state"
         ;;
     w|workspace)
         cmd="workspace"
-
+        ;;
 esac
 
 echo \-\> tofu ${cmd} ${opt} ${varFile} ${workVars}  ${@}
