@@ -57,6 +57,7 @@ case "${(L)$(hostname -s)}" in
   daxter )  plugins=(vi-mode zsh-aws-vault 1password docker docker-compose kubectl minikube) ;;
   wheatley  )  plugins=(vi-mode docker docker-compose) ;;
 esac
+VI_MODE_DISABLE_CLIPBOARD=true  ## stop cli yank from clobbering clipboard
 # plugins=(zsh-syntax-highlighting zsh-autosuggestions vi-mode zsh-aws-vault docker docker-compose)
 source $ZSH/oh-my-zsh.sh
 
