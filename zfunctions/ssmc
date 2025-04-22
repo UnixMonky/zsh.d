@@ -1,0 +1,77 @@
+# get the list of known profiles
+# profileList="$( aws-vault list --profiles )"
+# set -x
+
+# check if $1 is a known profile
+if (aws-vault list --profiles | egrep -q "^${1}$" ); then
+    profile=${1}
+    instance=${2}
+else
+  tla=$(echo $1 | cut -d'-' -f1)
+  case $1 in
+    usva*     ) tla="elc";;
+    bbgencora ) tla="bbg";;
+  esac
+  if (aws-vault list --profiles | egrep -q "^${tla}$" ); then
+    profile=${tla}
+  else
+    profile="ms"
+  fi
+  instance=${1}
+fi
+
+region_list=("us-east-1" "us-east-2" "us-west-1" "us-west-2" "eu-west-1" "eu-west-2" "ca-central-1")
+
+function awscli {
+  case ${profile} in
+    comcast|cc|estee|elco|elc ) aws --profile ${profile} "$@" ;;
+    *                         ) aws-vault exec $profile -- aws $@ ;;
+  esac
+}
+
+## Check if we can auth
+# authError="$(awscli sts get-caller-identity 2>&1 > /dev/null)"
+# if [[ -n ${authError} ]]; then
+#   echo "[ERR] Unable to authenticate to AWS, exiting ..."
+#   echo "${authError}"
+#   return
+# fi
+
+# aws ssm start-session --target ecs:mhuber-lab-cluster_9dd85e9227b94493a4134dd8993dfb88_9dd85e9227b94493a4134dd8993dfb88-0607325679 --document-name AWS-StartPortForwardingSessionToRemoteHost --parameters {"host":["mhuber-lab-jira.cbqw2gvoamyz.us-west-2.rds.amazonaws.com"],"portNumber":["5432"], "localPortNumber":["5432"]}
+
+# aws ecs execute-command --cluster mhuber-lab-cluster --task $(aws ecs list-tasks --cluster mhuber-lab-cluster --service-name mhuber-lab-bastion --desired-status RUNNING --query 'taskArns[0]' --output text | cat) --container bastion --command 'sh' --interactive
+
+# exec {containers}<> <(:)  ## create a pseudo file
+containers=""
+for region in "${region_list[@]}"; do
+  echo -n "."
+  for cluster in $(awscli --region $region ecs list-clusters --query "clusterArns[].[@]" --output text | cut -d/ -f2); do
+    for service in $(awscli --region $region ecs list-services --cluster ${cluster} --query "serviceArns[].[@]" --output text | cut -d/ -f3 | grep ${instance}); do
+      for task in $(awscli --region $region ecs list-tasks --cluster $cluster --service-name $service --desired-status RUNNING --query 'taskArns[].[@]' --output text ); do
+        containers+="$cluster $service $task"$'\n'
+        # echo -e "$cluster:$service:$container:$task:$taskid"
+      done
+    done
+  done
+  [[ -n $containers ]] && break
+done
+
+# echo "$containers"
+# echo "aws ecs execute-command --cluster mhuber-lab-cluster --task $(aws ecs list-tasks --cluster mhuber-lab-cluster --service-name mhuber-lab-bastion --desired-status RUNNING --query 'taskArns[0]' --output text | cat) --container bastion --command 'sh' --interactive"
+# echo "$containers"
+
+if [[ $(grep -c ".*" <<< "${containers}") -le 2 ]]; then
+  goto=${containers}
+else
+  COLUMNS=1
+  PS3="Select a container > "
+  select option in $(cut -d" " -f2 <<< "$containers"); do
+    goto="$(grep $option <<< "$containers")"
+    break
+  done
+fi
+echo "$goto"
+read -r c s t <<< "$goto"
+awscli --region $region ecs execute-command --cluster $c --task $(cut -d/ -f3 <<< "$t") --command "sh" --interactive
+
+
