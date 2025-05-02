@@ -61,7 +61,7 @@ autoload -Uz ${ZSH_D}/zfunctions/*
 type -a aws >/dev/null && export AWS_PAGER=""
 
 ## AWS Vault
-export AWS_VAULT_BACKEND="keychain"
+type -a aws >/dev/null && export AWS_VAULT_BACKEND="keychain"
 
 ## Deskflow
-export CMAKE_PREFIX_PATH="${HOME}/git/deskflow/deps/qt/6.7.2/macos:$CMAKE_PREFIX_PATH"
+# export CMAKE_PREFIX_PATH="${HOME}/git/deskflow/deps/qt/6.7.2/macos:$CMAKE_PREFIX_PATH"
