@@ -21,7 +21,7 @@ LOCAL_PATHS+=("/usr/local/opt/coreutils/libexec/gnubin")        # macos coreutil
 LOCAL_PATHS+=("/opt/homebrew/bin")        # local binaries
 LOCAL_PATHS+=("/usr/local/bin")        # local binaries
 LOCAL_PATHS+=("/usr/local/sbin")       # local system binaries
-# LOCAL_PATHS+=("/snap/bin")             # local snap binaries
+LOCAL_PATHS+=("/opt/homebrew/opt/libpq/bin")             # psql client binaries
 ## User-based local directories
 LOCAL_PATHS+=("${HOME}/.local/bin")    # user local binaries
 #LOCAL_PATHS+=("${HOME}/lbin")          # user local binaries
@@ -56,6 +56,9 @@ autoload -Uz ${ZSH_D}/zfunctions/*
 
 ## ruby/rvm
 # [[ -s "${HOME}/.rvm/scripts/rvm" ]] && source "${HOME}/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
+## AWS cli pagination
+type -a aws >/dev/null && export AWS_PAGER=""
 
 ## AWS Vault
 export AWS_VAULT_BACKEND="keychain"
