@@ -18,6 +18,18 @@ EOF
 break 2
 }
 
+while getopts d:h:l:p: opt; do
+    case "${opt}" in
+        d) database=${OPTARG};;
+        h) host=${OPTARG};;
+        l) lport=${OPTARG};;
+        p) port=${OPTARG};;
+        *) usage;;
+    esac
+done
+
+region_list=("us-east-1" "us-east-2" "us-west-1" "us-west-2" "eu-west-1" "eu-west-2" "ca-central-1")
+
 function awscli {
   case ${profile} in
     comcast|cc|estee|elco|elc ) aws --profile ${profile} "$@" ;;
@@ -44,17 +56,6 @@ else
   shift
 fi
 
-while getopts d:h:l:p: opt; do
-    case "${opt}" in
-        d) database=${OPTARG};;
-        h) host=${OPTARG};;
-        l) lport=${OPTARG};;
-        p) port=${OPTARG};;
-        *) usage;;
-    esac
-done
-
-region_list=("us-east-1" "us-east-2" "us-west-1" "us-west-2" "eu-west-1" "eu-west-2" "ca-central-1")
 
 
 ## Check if we can auth

@@ -1,0 +1,105 @@
+###
+# ssmcp - ssm container port forwarding
+###
+set -x
+function usage {
+  cat << EOF
+Usage: $(basename ${0}) [profile] container [-h host|-d database] [-p port] [-l localport]
+
+Open a remote ssh tunnel through an ECS bastion container
+
+where:
+    profile    : name of aws profile to use (will try to auto-determine)
+    instance   : instance to ssh through
+    host       : remote host to attach to
+    database   : remote rds database to attach to
+    port       : remote port to attach to
+    localport  : local port to forward
+EOF
+break 2
+}
+
+
+if (aws-vault list --profiles | egrep -q "^${1}$" ); then
+    profile=${1}
+    instance=${2}
+    shift 2
+else
+  tla=$(echo $1 | cut -d'-' -f1)
+  case $1 in
+    usva*     ) tla="elc";;
+    bbgencora ) tla="bbg";;
+  esac
+  if (aws-vault list --profiles | egrep -q "^${tla}$" ); then
+    profile=${tla}
+  else
+    profile="ms"
+  fi
+  instance=${1}
+  shift
+fi
+
+function awscli {
+  case ${profile} in
+    comcast|cc|estee|elco|elc ) aws --profile ${profile} "$@" ;;
+    *                         ) aws-vault exec $profile -- aws $@ ;;
+  esac
+}
+
+while getopts d:h:l:p: opt; do
+    case "${opt}" in
+        d) database=${OPTARG};;
+        h) host=${OPTARG};;
+        l) lport=${OPTARG};;
+        p) port=${OPTARG};;
+        *) usage;;
+    esac
+done
+
+echo "Debug: database=$database; host=$host; port=$port; lport=$lport"
+region_list=("us-east-1" "us-east-2" "us-west-1" "us-west-2" "eu-west-1" "eu-west-2" "ca-central-1")
+
+
+## Check if we can auth
+authError="$(awscli sts get-caller-identity 2>&1 > /dev/null)"
+if [[ -n ${authError} ]]; then
+  echo "[ERR] Unable to authenticate to AWS, exiting ..."
+  echo "${authError}"
+fi
+
+for region in "${region_list[@]}"; do
+  echo -n "."
+  filter="tag:Name"
+  [[ $instance == i-* ]] && filter="instance-id"
+  IFS=$'\n' instanceIds=($(awscli ec2 describe-instances --filter Name=${filter},Values="*${instance}*" Name=instance-state-name,Values=running --query "Reservations[].Instances[].[Tags[?Key=='Name'] | [0].Value,InstanceId]" --output text --region $region))
+
+  if [[ -n $instanceIds ]]; then
+    echo
+    if [[ $(wc -l <<< "${instanceIds}" | xargs) == 1 ]]; then
+      read -r n i <<< "${instanceIds}"
+      break 2
+    else
+      COLUMNS=1
+      PS3="Select an instance > "
+      select option in ${instanceIds[@]}; do
+        read -r n i <<< "${option}"
+        break 2
+      done
+    fi
+  fi
+done
+
+if [[ -n "${database}" ]]; then
+  host=$(awscli --region $r rds describe-db-clusters --query "DBClusters[].[Endpoint]" --output text | grep "${database}" )
+  [[ -z $host ]] && host=$(awscli --region $r rds describe-db-instances --query "DBInstances[].[Endpoint.Address]" --output text | grep "${database}" )
+fi
+
+if [[ -n $host ]]; then
+  echo "Opening tunnel to ${host}:${port} via ${n} using local port ${lport:-$port}, press ^C to exit"
+  awscli --region $r ssm start-session \
+    --target $i \
+    --document-name AWS-StartPortForwardingSessionToRemoteHost \
+    --parameters '{"host":["'${host}'"], "portNumber":["'${port}'"], "localPortNumber":["'${lport:-$port}'"]}'
+else
+  echo "[ERR] Host \'$host\' not found"
+fi

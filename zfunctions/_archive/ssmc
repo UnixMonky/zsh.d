@@ -58,7 +58,7 @@ done
 
 # echo "$containers"
 # echo "aws ecs execute-command --cluster mhuber-lab-cluster --task $(aws ecs list-tasks --cluster mhuber-lab-cluster --service-name mhuber-lab-bastion --desired-status RUNNING --query 'taskArns[0]' --output text | cat) --container bastion --command 'sh' --interactive"
-# echo "$containers"
+echo "$containers"
 
 if [[ $(grep -c ".*" <<< "${containers}") -le 2 ]]; then
   goto=${containers}
@@ -72,6 +72,6 @@ else
 fi
 echo "$goto"
 read -r c s t <<< "$goto"
-awscli --region $region ecs execute-command --cluster $c --task $(cut -d/ -f3 <<< "$t") --command "sh" --interactive
+awscli --region $region ecs execute-command --cluster $c --task $(cut -d/ -f3 <<< "$t") --command "sh" --interactive --debug
 
 
