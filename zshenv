@@ -27,6 +27,7 @@ LOCAL_PATHS+=("${HOME}/.local/bin")    # user local binaries
 #LOCAL_PATHS+=("${HOME}/lbin")          # user local binaries
 #LOCAL_PATHS+=("${HOME}/bin")          # user local binaries
 LOCAL_PATHS+=("${HOME}/git/scripts")       # my scripts
+LOCAL_PATHS+=("${HOME}/git/pyscripts/dist")  # my compiled scripts
 ## Utilities
 LOCAL_PATHS+=("/opt/samba/bin")        # SAMBA
 LOCAL_PATHS+=("/opt/samba/sbin")       # SAMBA
