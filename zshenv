@@ -21,12 +21,13 @@ LOCAL_PATHS+=("/usr/local/opt/coreutils/libexec/gnubin")        # macos coreutil
 LOCAL_PATHS+=("/opt/homebrew/bin")        # local binaries
 LOCAL_PATHS+=("/usr/local/bin")        # local binaries
 LOCAL_PATHS+=("/usr/local/sbin")       # local system binaries
-# LOCAL_PATHS+=("/snap/bin")             # local snap binaries
+LOCAL_PATHS+=("/opt/homebrew/opt/libpq/bin")             # psql client binaries
 ## User-based local directories
 LOCAL_PATHS+=("${HOME}/.local/bin")    # user local binaries
 #LOCAL_PATHS+=("${HOME}/lbin")          # user local binaries
 #LOCAL_PATHS+=("${HOME}/bin")          # user local binaries
 LOCAL_PATHS+=("${HOME}/git/scripts")       # my scripts
+LOCAL_PATHS+=("${HOME}/git/pyscripts/dist")  # my compiled scripts
 ## Utilities
 LOCAL_PATHS+=("/opt/samba/bin")        # SAMBA
 LOCAL_PATHS+=("/opt/samba/sbin")       # SAMBA
@@ -63,9 +64,11 @@ VI_MODE_DISABLE_CLIPBOARD=true
 export NVM_DIR="$HOME/.nvm"
 [ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
 [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+## AWS cli pagination
+type -a aws >/dev/null && export AWS_PAGER=""
 
 ## AWS Vault
-export AWS_VAULT_BACKEND="keychain"
+type -a aws >/dev/null && export AWS_VAULT_BACKEND="keychain"
 
 ## Deskflow
-export CMAKE_PREFIX_PATH="${HOME}/git/deskflow/deps/qt/6.7.2/macos:$CMAKE_PREFIX_PATH"
+# export CMAKE_PREFIX_PATH="${HOME}/git/deskflow/deps/qt/6.7.2/macos:$CMAKE_PREFIX_PATH"
