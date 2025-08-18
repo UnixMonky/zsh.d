@@ -54,8 +54,15 @@ fpath=("${ZSH_D}/zfunctions" $fpath)
 export FPATH
 autoload -Uz ${ZSH_D}/zfunctions/*
 
+VI_MODE_DISABLE_CLIPBOARD=true
+
 ## ruby/rvm
 # [[ -s "${HOME}/.rvm/scripts/rvm" ]] && source "${HOME}/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
+## npm
+export NVM_DIR="$HOME/.nvm"
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 ## AWS Vault
 export AWS_VAULT_BACKEND="keychain"
