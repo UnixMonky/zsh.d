@@ -1,0 +1,5 @@
+fluidsynth --server -q -i \
+  -o midi.driver=coremidi \
+  -o audio.driver=coreaudio \
+  -o audio.coreaudio.device=default \
+  -o audio.period-size=256 ${1}
