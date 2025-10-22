@@ -1,6 +1,12 @@
-# terraform functions
+# terraform/tofu shortcuts
+
+# Determine if terraform needed from "required_version" parameter
+function ver { printf "%03d%03d%03d%03d" $(echo "$1" | tr '.' ' '); }
+req_ver=$(find . -name "*.tf" -exec  awk -F'[" ]' '/required_version/ {print $(NF-1)}' '{}' \; | sort -V | tail -1)
+[[ $(ver $req_ver) -gt $(ver 1.10) ]] && tf=terraform || tf=tofu
+
 local workspace cmd varFile workVars opt
-workspace="$(tofu workspace show)"
+workspace="$(${tf} workspace show)"
 cmd=$1; shift
 
 case $cmd in
@@ -35,5 +41,5 @@ case $cmd in
         ;;
 esac
 
-echo \-\> tofu ${cmd} ${opt} ${varFile} ${workVars}  ${@}
-tofu ${cmd} ${varFile} ${opt} ${workVars} ${@}
+echo \-\> ${tf} ${cmd} ${opt} ${varFile} ${workVars}  ${@}
+${tf} ${cmd} ${varFile} ${opt} ${workVars} ${@}
