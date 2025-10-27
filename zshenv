@@ -39,6 +39,8 @@ LOCAL_PATHS+=("/usr/bin/core_perl")    # Go language
 LOCAL_PATHS+=("${HOME}/.rvm/bin")        # rvm (ruby)
 ## Deskflow
 LOCAL_PATHS+=("${HOME}/git/deskflow/deps/qt/6.7.2/macos/bin")
+## X11
+LOCAL_PATHS+=("/opt/X11/bin")
 
 FULL_PATH=()
 for PATH_ELEMENT in "${OS_PATH[@]}" "${LOCAL_PATHS[@]}"; do
