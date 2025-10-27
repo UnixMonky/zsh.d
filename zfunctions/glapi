@@ -1,0 +1,3 @@
+curl -s --request GET \
+  --header "PRIVATE-TOKEN: $(op read "op://Employee/Gitlab - MHuber Token/credential")" \
+  --url "https://gitlab.adaptavist.net/api/v4/${1}" | jq -r
