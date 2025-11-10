@@ -11,8 +11,9 @@ cmd=$1; shift
 
 case $cmd in
     a|apply)
-        [[ $# -eq 0 ]] && [[ -f my.plan ]] && varFile="my.plan"
+        [[ $# -eq 0 ]] && [[ -f tfplan ]]
         cmd="apply"
+        opt="tfplan"
         ;;
     destroy)
         [[ -f my.vars ]] && varFile="-var-file=my.vars"
@@ -26,7 +27,7 @@ case $cmd in
     p|plan)
         [[ -f my.vars ]] && varFile="-var-file=my.vars"
         [[ "${workspace}" != "default" ]] && [[ -f ${workspace}.tfvars ]] && workVars="-var-file=${workspace}.tfvars"
-        opt="-out=my.plan"
+        opt="-out=tfplan"
         cmd="plan"
         ;;
     s?|state)
