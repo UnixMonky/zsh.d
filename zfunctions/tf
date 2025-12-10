@@ -42,5 +42,6 @@ case $cmd in
         ;;
 esac
 
+clear
 echo \-\> ${tf} ${cmd} ${opt} ${varFile} ${workVars}  ${@}
 ${tf} ${cmd} ${varFile} ${opt} ${workVars} ${@}
