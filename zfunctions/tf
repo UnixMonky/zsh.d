@@ -14,11 +14,13 @@ case $cmd in
         [[ $# -eq 0 ]] && [[ -f tfplan ]]
         cmd="apply"
         opt="tfplan"
+        clear
         ;;
     destroy)
         [[ -f my.vars ]] && varFile="-var-file=my.vars"
         [[ "${workspace}" != "default" ]] && [[ -f ${workspace}.tfvars ]] && workVars="-var-file=${workspace}.tfvars"
         cmd="destroy"
+        clear
         ;;
     i|iu|init)
         [[ ${cmd:1:2} == "u" ]] && opt="-upgrade"
@@ -29,6 +31,7 @@ case $cmd in
         [[ "${workspace}" != "default" ]] && [[ -f ${workspace}.tfvars ]] && workVars="-var-file=${workspace}.tfvars"
         opt="-out=tfplan"
         cmd="plan"
+        clear
         ;;
     s?|state)
         case ${cmd:1:2} in
@@ -42,6 +45,5 @@ case $cmd in
         ;;
 esac
 
-clear
 echo \-\> ${tf} ${cmd} ${opt} ${varFile} ${workVars}  ${@}
 ${tf} ${cmd} ${varFile} ${opt} ${workVars} ${@}
