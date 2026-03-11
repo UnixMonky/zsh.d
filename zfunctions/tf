@@ -29,7 +29,7 @@ case $cmd in
     p|plan)
         [[ -f my.vars ]] && varFile="-var-file=my.vars"
         [[ "${workspace}" != "default" ]] && [[ -f ${workspace}.tfvars ]] && workVars="-var-file=${workspace}.tfvars"
-        opt="-out=tfplan"
+        opt="-out=my.plan"
         cmd="plan"
         clear
         ;;
@@ -39,6 +39,9 @@ case $cmd in
           s) opt="show"; [[ $# > 1 ]] && shift;;
         esac
         cmd="state"
+        ;;
+    v|validate)
+        cmd="validate"
         ;;
     w|workspace)
         cmd="workspace"
