@@ -7,6 +7,7 @@ alias grep='grep --color=auto'  ## grep coloring
 alias ducks='du -cksh * | sort -hr | head -n 15'  ## sorting alias
 # alias pwgen='keepassxc-cli generate -lUnsL32 --exclude-similar'
 
+alias myip='curl https://icanhazip.com'
 ## terraform
 # alias tf='terraform'
 # alias tfp='tf plan --out my.plan'
