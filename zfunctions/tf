@@ -3,7 +3,7 @@
 # Determine if terraform needed from "required_version" parameter
 function ver { printf "%03d%03d%03d%03d" $(echo "$1" | tr '.' ' '); }
 req_ver=$(find . -name "*.tf" -exec  awk -F'[" ]' '/required_version/ {print $(NF-1)}' '{}' \; | sort -V | tail -1)
-[[ $(ver $req_ver) -gt $(ver 1.10) ]] && tf=terraform || tf=tofu
+[[ $(ver $req_ver) -gt $(ver 1.11) ]] && tf=terraform || tf=tofu
 
 local workspace cmd varFile workVars opt
 workspace="$(${tf} workspace show)"
@@ -11,13 +11,13 @@ cmd=$1; shift
 
 case $cmd in
     a|apply)
-        [[ $# -eq 0 ]] && [[ -f tfplan ]]
+        [[ $# -eq 0 ]] && [[ -f my.plan ]]
         cmd="apply"
-        opt="tfplan"
+        opt="my.plan"
         clear
         ;;
     destroy)
-        [[ -f my.vars ]] && varFile="-var-file=my.vars"
+        # [[ -f my.vars ]] && varFile="-var-file=my.vars"
         [[ "${workspace}" != "default" ]] && [[ -f ${workspace}.tfvars ]] && workVars="-var-file=${workspace}.tfvars"
         cmd="destroy"
         clear
@@ -27,7 +27,7 @@ case $cmd in
         cmd="init"
         ;;
     p|plan)
-        [[ -f my.vars ]] && varFile="-var-file=my.vars"
+        # [[ -f my.vars ]] && varFile="-var-file=my.vars"
         [[ "${workspace}" != "default" ]] && [[ -f ${workspace}.tfvars ]] && workVars="-var-file=${workspace}.tfvars"
         opt="-out=my.plan"
         cmd="plan"
