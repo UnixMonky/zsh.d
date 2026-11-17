@@ -1,37 +1,47 @@
-# terraform/tofu shortcuts
+local workspace cmd varFile workVars opt outFile rawFile rc
+local useOut=0
+local -a args=()
 
 # Determine if terraform needed from "required_version" parameter
 function ver { printf "%03d%03d%03d%03d" $(echo "$1" | tr '.' ' '); }
 req_ver=$(find . -name "*.tf" -exec  awk -F'[" ]' '/required_version/ {print $(NF-1)}' '{}' \; | sort -V | tail -1)
 [[ $(ver $req_ver) -gt $(ver 1.11) ]] && tf=terraform || tf=tofu
 
-local workspace cmd varFile workVars opt
 workspace="$(${tf} workspace show)"
 cmd=$1; shift
 
+# Pull out -o|--out|--output (optional filename) and keep everything else
+while (( $# )); do
+    case $1 in
+        -o|--out|--output)
+            useOut=1; shift
+            if (( $# )) && [[ $1 != -* ]]; then outFile=$1; shift; fi
+            ;;
+        *) args+=("$1"); shift ;;
+    esac
+done
+set -- "${args[@]}"
+
 case $cmd in
     a|apply)
-        [[ $# -eq 0 ]] && [[ -f my.plan ]]
         cmd="apply"
         opt="my.plan"
-        clear
+        [[ -t 1 ]] && clear
         ;;
     destroy)
-        # [[ -f my.vars ]] && varFile="-var-file=my.vars"
         [[ "${workspace}" != "default" ]] && [[ -f ${workspace}.tfvars ]] && workVars="-var-file=${workspace}.tfvars"
         cmd="destroy"
-        clear
+        [[ -t 1 ]] && clear
         ;;
     i|iu|init)
         [[ ${cmd:1:2} == "u" ]] && opt="-upgrade"
         cmd="init"
         ;;
     p|plan)
-        # [[ -f my.vars ]] && varFile="-var-file=my.vars"
         [[ "${workspace}" != "default" ]] && [[ -f ${workspace}.tfvars ]] && workVars="-var-file=${workspace}.tfvars"
         opt="-out=my.plan"
         cmd="plan"
-        clear
+        [[ -t 1 ]] && clear
         ;;
     s?|state)
         case ${cmd:1:2} in
@@ -48,5 +58,20 @@ case $cmd in
         ;;
 esac
 
+# -o with no filename writes my.<command>.txt, matching my.plan.txt and my.apply.txt
+(( useOut )) && [[ -z ${outFile:-} ]] && outFile="my.${cmd}.txt"
+
 echo \-\> ${tf} ${cmd} ${opt} ${varFile} ${workVars}  ${@}
-${tf} ${cmd} ${varFile} ${opt} ${workVars} ${@}
+
+if (( useOut )); then
+    # script gives OpenTofu a terminal, so color stays on screen; the log is then stripped to plain text
+    rawFile=$(mktemp)
+    script -q "${rawFile}" ${tf} ${cmd} ${varFile} ${opt} ${workVars} ${@}
+    rc=$?
+    sed -E $'s/\e\\[[0-9;?]*[A-Za-z]//g' "${rawFile}" | tr -d '\r' > "${outFile}"
+    rm -f "${rawFile}"
+    echo "-> plaintext copy written to ${outFile}"
+    return ${rc}
+else
+    ${tf} ${cmd} ${varFile} ${opt} ${workVars} ${@}
+fi
