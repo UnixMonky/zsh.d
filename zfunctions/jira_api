@@ -1,0 +1,4 @@
+curl -s --request GET \
+  --user "mhuber@adaptavist.com:$(op item get cgzmsrodibp2nk6pz3keu7s4z4 --fields label=credential --reveal)" \
+  --header 'Accept: application/json' \
+  --url "https://${1}.atlassian.net/rest/api/3/${2}"
