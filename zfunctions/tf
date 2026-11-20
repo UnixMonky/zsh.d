@@ -58,10 +58,10 @@ case $cmd in
         ;;
 esac
 
-# -o with no filename writes out/my.<command>.txt, matching my.plan.txt and my.apply.txt
+# -o with no filename writes my.out/my.<command>.txt, matching my.plan.txt and my.apply.txt
 if (( useOut )) && [[ -z ${outFile:-} ]]; then
-    mkdir -p out
-    outFile="out/my.${cmd}.txt"
+    mkdir -p my.out
+    outFile="my.out/my.${cmd}.txt"
 fi
 
 echo \-\> ${tf} ${cmd} ${opt} ${varFile} ${workVars}  ${@}
